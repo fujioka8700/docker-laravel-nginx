@@ -2,6 +2,15 @@ FROM php:8.1-fpm-bullseye AS base
 
 WORKDIR /workspace
 
+# Node.js
+RUN apt-get -y update
+RUN apt-get install -y \
+    curl \
+    gnupg
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get install -y nodejs
+RUN npm install npm@latest -g
+
 # timezone environment
 ENV TZ=UTC \
   # locale
