@@ -32,6 +32,8 @@ services:
       - DB_DATABASE=${DB_DATABASE:-laravel}
       - DB_USERNAME=${DB_USERNAME:-phper}
       - DB_PASSWORD=${DB_PASSWORD:-secret}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   web:
     build:
