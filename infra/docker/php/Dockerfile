@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-bullseye AS base
+FROM php:8.2-fpm-bullseye AS base
 
 WORKDIR /workspace
 
@@ -6,8 +6,9 @@ WORKDIR /workspace
 RUN apt-get -y update
 RUN apt-get install -y \
     curl \
-    gnupg
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+    gnupg \
+    default-mysql-client
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install npm@latest -g
 
@@ -21,7 +22,7 @@ ENV TZ=UTC \
   COMPOSER_ALLOW_SUPERUSER=1 \
   COMPOSER_HOME=/composer
 
-COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
 RUN apt-get update \
   && apt-get -y install --no-install-recommends \
